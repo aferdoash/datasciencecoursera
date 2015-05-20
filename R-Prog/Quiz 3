@@ -1,0 +1,3 @@
+In iris dataset, what is the mean of 'Sepal.Length' for the species virginica? 
+mean(subset(iris,Species == "virginica")$Sepal.Length)
+
