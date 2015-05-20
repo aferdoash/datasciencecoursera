@@ -1,3 +1,17 @@
-In iris dataset, what is the mean of 'Sepal.Length' for the species virginica? 
-mean(subset(iris,Species == "virginica")$Sepal.Length)
+Q1) In iris dataset, what is the mean of 'Sepal.Length' for the species virginica? 
+*mean(subset(iris,Species == "virginica")$Sepal.Length)
+OR
+*> tapply(iris$Sepal.Length,iris$Species,mean)
+    setosa versicolor  virginica 
+     5.006      5.936      6.588 
+*> tapply(iris$Sepal.Length,iris$Species=="virginica",mean)
+   FALSE  TRUE 
+   5.471 6.588
+
+Q2)Continuing with the 'iris' dataset from the previous Question, what R code returns a vector of the means of the variables 'Sepal.Length', 'Sepal.Width', 'Petal.Length', and 'Petal.Width'?
+*apply(iris[,1:4], 2,mean)
+
+Q3)How can one calculate the average miles per gallon (mpg) by number of cylinders in the car (cyl)?
+*tapply(mtcars$mpg, mtcars$cyl, mean)
+
 
