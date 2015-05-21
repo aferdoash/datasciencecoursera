@@ -1,0 +1,36 @@
+setwd("C:/Users/user/Desktop/DataScience/R")
+pollutantmean <- function(directory, pollutant, id=1:332) {
+        poll_data=numeric()
+        for ( i in 1:length(id)) {
+               data_file = formatC(id[i],width=3,flag="0")
+               dir_file=paste("./",directory,"/",data_file,".csv",sep="")
+               poll_data=c(poll_data,read.csv(dir_file)[[pollutant]])           
+        } 
+        mean(poll_data,na.rm=TRUE) 
+  }
+
+
+complete <- function(directory, id ) {
+    complete_data= NULL
+    for (i in 1:length(id)) {
+        dir_file = formatC(id[i],width=3,flag="0")
+        data_file=read.csv(paste("./",directory,"/",dir_file,".csv",sep=""))
+        complete_data=rbind(complete_data,cbind(id[i],sum(complete.cases(data_file))))        
+      } 
+      complete_data=as.data.frame(complete_data)
+      colnames(complete_data)=c("ID","nobs")
+      complete_data
+  }
+  
+  
+corr <- function(directory, threshold=0) {
+  corr_data= numeric()
+  for (i in 1:332) {
+    dir_file = formatC(i,width=3,flag="0")
+    data_file=read.csv(paste("./",directory,"/",dir_file,".csv",sep=""))
+    if (sum(complete.cases(data_file))> threshold) {
+       corr_data=c(corr_data, cor(data_file$nitrate,data_file$sulfate,use="complete.obs"))
+       } 
+   }   
+  corr_data  
+}
